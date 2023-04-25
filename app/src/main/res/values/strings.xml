@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">bloodBroject</string>
+    <string name="get_started">Get Started</string>
+    <string name="user_name">userName</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="send_a_request">Send A Request</string>
+    <string name="view_request">View Request</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="To">To:</string>
+    <string name="Email">Email:</string>
+    <string name="Blood_Type">Blood Type:</string>
+    <string name="Quantity">Quantity:</string>
+    <string name="hospital_name">Hospital Name</string>
+    <string name="hospital_email">Hospital Email</string>
+    <string name="A">A+</string>
+    <string name="mml">mml</string>
+    <string name="send">Send</string>
+    <string name="title_activity_login_page">LoginPage</string>
+    <string name="title_activity_request_page">RequestPage</string>
+    <string name="title_activity_send_request_page">SendRequestPage</string>
+
+</resources>
