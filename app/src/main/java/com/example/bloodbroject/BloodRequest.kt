@@ -1,5 +1,6 @@
 package com.example.bloodbroject
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -41,12 +42,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 
-
-class SendRequestPage : ComponentActivity() {
+class BloodRequest : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             val image = painterResource(id = R.drawable.background)
             Image(painter = image, contentDescription = null,
                 contentScale = ContentScale.Crop,
@@ -59,54 +58,39 @@ class SendRequestPage : ComponentActivity() {
             ) {
                 Row {
                     Text(
-                        stringResource(id = R.string.To),
+                        stringResource(id = R.string.entre_your_location),
                         fontSize = 23.sp,
-                        modifier = Modifier.padding(end = 80.dp)
+                        modifier = Modifier.padding(end = 40.dp)
                     )
-                    HospitalName()
+                    LocationField()
                 }
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(40.dp))
                 Row {
                     Text(
-                        stringResource(id = R.string.Email),
+                        stringResource(id = R.string.nearest_hospital),
                         modifier = Modifier.padding(end = 55.dp),
                         fontSize = 23.sp
                     )
-                    HospitalEmail()
+                    DropDownNearestMenu()
                 }
-                Spacer(modifier = Modifier.height(20.dp))
-                Row {
-                    Text(
-                        stringResource(id = R.string.Blood_Type),
-                        modifier = Modifier.padding(end = 5.dp),
-                        fontSize = 23.sp
-                    )
-                    DropDownMenu()
-                }
-                Spacer(modifier = Modifier.height(20.dp))
-                Row {
-                    Text(
-                        stringResource(id = R.string.Quantity),
-                        modifier = Modifier.padding(end = 40.dp),
-                        fontSize = 23.sp
-                    )
-                    BloodQuantity()
-                }
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(70.dp))
                 Button(
-                    onClick = {  }
+                    onClick = {
+                        val sendRequestNavigate = Intent(this@BloodRequest, UserInformation::class.java)
+                        startActivity(sendRequestNavigate)
+                    },
+                    modifier = Modifier.width(130.dp).height(40.dp)
                 ) {
-                    Text(text = stringResource(id = R.string.send))
+                    Text(text = stringResource(id = R.string.next))
                 }
             }
-
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HospitalName() {
+fun LocationField() {
     var editText by remember {
         mutableStateOf("")
     }
@@ -116,50 +100,17 @@ fun HospitalName() {
         modifier = Modifier
             .height(60.dp)
             .width(200.dp),
-        label = { Text(stringResource(R.string.hospital_name)) },
+        label = { Text(stringResource(R.string.your_location)) },
         singleLine = true,
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun HospitalEmail() {
-    var editText by remember {
-        mutableStateOf("")
-    }
-    TextField(
-        value = editText,
-        onValueChange = { editText = it },
-        modifier = Modifier
-            .height(60.dp)
-            .width(200.dp),
-        label = { Text(stringResource(R.string.hospital_email)) },
-        singleLine = true,
-    )
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BloodQuantity() {
-    var editText by remember {
-        mutableStateOf("")
-    }
-    TextField(
-        value = editText,
-        onValueChange = { editText = it },
-        modifier = Modifier
-            .height(60.dp)
-            .width(200.dp),
-        label = { Text(stringResource(R.string.mml)) },
-        singleLine = true,
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DropDownMenu() {
+fun DropDownNearestMenu() {
     var expanded by remember { mutableStateOf(false) }
-    val listItems = listOf("A+","A-","B+","B-","O+","O-","AB+","AB-")
+    val listItems = listOf("University Hospital","Piece Hospital","Assiut Hospital")
     var selectedItem by remember { mutableStateOf("") }
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
     val icon = if (expanded) { Icons.Filled.KeyboardArrowUp }
@@ -182,8 +133,8 @@ fun DropDownMenu() {
             listItems.forEach { label ->
                 DropdownMenuItem(text = { Text(text = label) },
                     onClick = {
-                    selectedItem = label
-                    expanded = false
+                        selectedItem = label
+                        expanded = false
                     })
             }
         }

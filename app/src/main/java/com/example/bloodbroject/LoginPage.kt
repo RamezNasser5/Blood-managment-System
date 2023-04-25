@@ -50,7 +50,7 @@ class LoginPage : ComponentActivity() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(top = 160.dp, bottom = 120.dp, start = 50.dp, end = 50.dp)
+                    .padding(top = 160.dp, bottom = 100.dp, start = 70.dp, end = 30.dp)
                     .background(Color.Red)
             ) {
                 Text(text = "Sign In", fontSize = 30.sp,
@@ -84,7 +84,7 @@ class LoginPage : ComponentActivity() {
                     },
                     modifier = Modifier
                         .width(130.dp)
-                        .height(30.dp)
+                        .height(50.dp)
                 ) {
                     Text(text = stringResource(id = R.string.login))
                 }

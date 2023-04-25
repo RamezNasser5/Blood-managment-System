@@ -19,5 +19,20 @@
     <string name="title_activity_login_page">LoginPage</string>
     <string name="title_activity_request_page">RequestPage</string>
     <string name="title_activity_send_request_page">SendRequestPage</string>
+    <string name="title_activity_blood_request">BloodRequest</string>
+    <string name="entre_your_location">Entre Your Location</string>
+    <string name="your_location">Your Location</string>
+    <string name="nearest_hospital">Nearest Hospital</string>
+    <string name="next">Next</string>
+    <string name="title_activity_user_information">UserInformation</string>
+    <string name="age">Entre Your Age</string>
+    <string name="length">Entre Your Length</string>
+    <string name="weight">Entre Your Weight</string>
+    <string name="diseases">Entre Your Diseases</string>
+    <string name="age1">Age</string>
+    <string name="length1">Length</string>
+    <string name="weight1">Weight</string>
+    <string name="diseases1">Diseases</string>
+    <string name="diseases_if_exist">Entre Your Diseases If Exist</string>
 
 </resources>

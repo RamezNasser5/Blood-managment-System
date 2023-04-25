@@ -36,7 +36,7 @@ class RequestPage : ComponentActivity() {
             ) {
                 Button(
                     onClick = {
-                        val sendRequestNavigate = Intent(this@RequestPage, SendRequestPage::class.java)
+                        val sendRequestNavigate = Intent(this@RequestPage, BloodRequest::class.java)
                         startActivity(sendRequestNavigate)
                     }
                 ) {
@@ -44,7 +44,10 @@ class RequestPage : ComponentActivity() {
                 }
                 Spacer(modifier = Modifier.height(30.dp))
                 Button(
-                    onClick = {  }
+                    onClick = {
+                        val sendRequestNavigate = Intent(this@RequestPage, SendRequestPage::class.java)
+                        startActivity(sendRequestNavigate)
+                    }
                 ) {
                     Text(text = stringResource(id = R.string.view_request))
                 }

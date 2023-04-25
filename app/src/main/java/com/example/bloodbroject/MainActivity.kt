@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
                               },
                     modifier = Modifier
                         .width(130.dp)
-                        .height(30.dp)
+                        .height(50.dp)
                 ) {
                     Text(text = stringResource(id = R.string.get_started))
                 }
