@@ -4,8 +4,8 @@
     <string name="user_name">userName</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
-    <string name="send_a_request">Send A Request</string>
-    <string name="view_request">View Request</string>
+    <string name="send_a_request">Blood Donation</string>
+    <string name="view_request">Blood Request</string>
     <string name="remember_me">Remember Me</string>
     <string name="To">To:</string>
     <string name="Email">Email:</string>
