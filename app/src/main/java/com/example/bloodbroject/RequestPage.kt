@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -35,8 +37,9 @@ class RequestPage : ComponentActivity() {
                 modifier = Modifier.fillMaxSize()
             ) {
                 Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(123,40,40)) ,
                     onClick = {
-                        val sendRequestNavigate = Intent(this@RequestPage, BloodRequest::class.java)
+                        val sendRequestNavigate = Intent(this@RequestPage, BloodDonation::class.java)
                         startActivity(sendRequestNavigate)
                     }
                 ) {
@@ -44,8 +47,9 @@ class RequestPage : ComponentActivity() {
                 }
                 Spacer(modifier = Modifier.height(30.dp))
                 Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(123,40,40)) ,
                     onClick = {
-                        val sendRequestNavigate = Intent(this@RequestPage, SendRequestPage::class.java)
+                        val sendRequestNavigate = Intent(this@RequestPage, BloodRequest::class.java)
                         startActivity(sendRequestNavigate)
                     }
                 ) {

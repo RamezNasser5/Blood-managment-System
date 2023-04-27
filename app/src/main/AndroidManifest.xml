@@ -13,6 +13,11 @@
         android:theme="@style/Theme.BloodBroject"
         tools:targetApi="31">
         <activity
+            android:name=".BloodDonation"
+            android:exported="false"
+            android:label="@string/title_activity_blood_donation"
+            android:theme="@style/Theme.BloodBroject" />
+        <activity
             android:name=".UserInformation"
             android:exported="false"
             android:label="@string/title_activity_user_information"

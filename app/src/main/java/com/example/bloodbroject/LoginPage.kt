@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 //import androidx.compose.material3.Checkbox
@@ -50,9 +51,10 @@ class LoginPage : ComponentActivity() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(top = 160.dp, bottom = 100.dp, start = 70.dp, end = 30.dp)
-                    .background(Color.Red)
+                    .padding(top = 160.dp, bottom = 100.dp, start = 50.dp, end = 30.dp)
+                    .background(Color(200,70,70))
             ) {
+                Spacer(modifier = Modifier.height(20.dp))
                 Text(text = "Sign In", fontSize = 30.sp,
                     modifier = Modifier
                         .align(Alignment.Start)
@@ -78,17 +80,17 @@ class LoginPage : ComponentActivity() {
                 }
                 Spacer(modifier = Modifier.height(30.dp))
                 Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(123,40,40)) ,
                     onClick = {
                         val requestNavigate = Intent(this@LoginPage, RequestPage::class.java)
                         startActivity(requestNavigate)
                     },
                     modifier = Modifier
-                        .width(130.dp)
-                        .height(50.dp)
+                        .width(130.dp).height(50.dp)
                 ) {
                     Text(text = stringResource(id = R.string.login))
                 }
-
+                Spacer(modifier = Modifier.height(30.dp))
             }
 
         }
@@ -102,6 +104,7 @@ fun PasswordField() {
         mutableStateOf("")
     }
     TextField(
+        modifier = Modifier.padding(start = 15.dp, end = 15.dp),
         value = editText,
         onValueChange = { editText = it },
         label = { Text(stringResource(R.string.password)) },
@@ -120,5 +123,6 @@ fun UserNameField() {
         onValueChange = { editText = it },
         label = { Text(stringResource(R.string.user_name)) },
         singleLine = true,
+        modifier = Modifier.padding(start = 15.dp, end = 15.dp)
     )
 }

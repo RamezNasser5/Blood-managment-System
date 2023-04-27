@@ -1,5 +1,6 @@
 package com.example.bloodbroject
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,7 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
@@ -41,12 +43,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 
-
-class SendRequestPage : ComponentActivity() {
+class BloodDonation : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             val image = painterResource(id = R.drawable.background)
             Image(painter = image, contentDescription = null,
                 contentScale = ContentScale.Crop,
@@ -57,56 +57,47 @@ class SendRequestPage : ComponentActivity() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxSize()
             ) {
-                Row {
+                Row (
+                    modifier = Modifier
+                ){
                     Text(
-                        stringResource(id = R.string.To),
+                        stringResource(id = R.string.entre_your_location),
                         fontSize = 23.sp,
-                        modifier = Modifier.padding(end = 80.dp)
+                        modifier = Modifier.padding(end = 85.dp, top = 15.dp)
                     )
-                    HospitalName()
+                    LocationField()
                 }
                 Spacer(modifier = Modifier.height(20.dp))
-                Row {
+                Row (
+                    modifier = Modifier
+                        .padding(start = 10.dp, end = 10.dp)
+                ){
                     Text(
-                        stringResource(id = R.string.Email),
-                        modifier = Modifier.padding(end = 55.dp),
+                        stringResource(id = R.string.nearest_hospital),
+                        modifier = Modifier.padding(end = 15.dp, top = 15.dp),
                         fontSize = 23.sp
                     )
-                    HospitalEmail()
+                    DropDownMenuForLocation()
                 }
-                Spacer(modifier = Modifier.height(20.dp))
-                Row {
-                    Text(
-                        stringResource(id = R.string.Blood_Type),
-                        modifier = Modifier.padding(end = 5.dp),
-                        fontSize = 23.sp
-                    )
-                    DropDownMenu()
-                }
-                Spacer(modifier = Modifier.height(20.dp))
-                Row {
-                    Text(
-                        stringResource(id = R.string.Quantity),
-                        modifier = Modifier.padding(end = 40.dp),
-                        fontSize = 23.sp
-                    )
-                    BloodQuantity()
-                }
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(70.dp))
                 Button(
-                    onClick = {  }
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(123,40,40)) ,
+                    onClick = {
+                        val sendRequestNavigate = Intent(this@BloodDonation, UserInformation::class.java)
+                        startActivity(sendRequestNavigate)
+                    },
+                    modifier = Modifier.width(130.dp).height(40.dp)
                 ) {
-                    Text(text = stringResource(id = R.string.send))
+                    Text(text = stringResource(id = R.string.next))
                 }
             }
-
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HospitalName() {
+fun LocationField() {
     var editText by remember {
         mutableStateOf("")
     }
@@ -116,56 +107,22 @@ fun HospitalName() {
         modifier = Modifier
             .height(60.dp)
             .width(200.dp),
-        label = { Text(stringResource(R.string.hospital_name)) },
+        label = { Text(stringResource(R.string.your_location)) },
         singleLine = true,
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HospitalEmail() {
-    var editText by remember {
-        mutableStateOf("")
-    }
-    TextField(
-        value = editText,
-        onValueChange = { editText = it },
-        modifier = Modifier
-            .height(60.dp)
-            .width(200.dp),
-        label = { Text(stringResource(R.string.hospital_email)) },
-        singleLine = true,
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun BloodQuantity() {
-    var editText by remember {
-        mutableStateOf("")
-    }
-    TextField(
-        value = editText,
-        onValueChange = { editText = it },
-        modifier = Modifier
-            .height(60.dp)
-            .width(200.dp),
-        label = { Text(stringResource(R.string.mml)) },
-        singleLine = true,
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DropDownMenu() {
+fun DropDownMenuForLocation() {
     var expanded by remember { mutableStateOf(false) }
-    val listItems = listOf("A+","A-","B+","B-","O+","O-","AB+","AB-")
+    val listItems = listOf("Assiut Hospital","piece Hospital","University Hospital")
     var selectedItem by remember { mutableStateOf("") }
-    var textFieldSize by remember { mutableStateOf(Size.Zero) }
+    var textFieldSize by remember { mutableStateOf(androidx.compose.ui.geometry.Size.Zero) }
     val icon = if (expanded) { Icons.Filled.KeyboardArrowUp }
     else { Icons.Filled.KeyboardArrowDown }
 
-    Column (modifier = Modifier.padding(20.dp)) {
+    Column {
         OutlinedTextField(
             value = selectedItem, onValueChange = {selectedItem = it},
             modifier = Modifier.height(60.dp).width(200.dp)
@@ -182,8 +139,8 @@ fun DropDownMenu() {
             listItems.forEach { label ->
                 DropdownMenuItem(text = { Text(text = label) },
                     onClick = {
-                    selectedItem = label
-                    expanded = false
+                        selectedItem = label
+                        expanded = false
                     })
             }
         }

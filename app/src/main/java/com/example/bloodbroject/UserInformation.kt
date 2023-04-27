@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -23,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -47,7 +49,7 @@ class UserInformation : ComponentActivity() {
                     Text(
                         stringResource(id = R.string.age1),
                         fontSize = 23.sp,
-                        modifier = Modifier.padding(end = 50.dp)
+                        modifier = Modifier.padding(end = 85.dp, top = 15.dp)
                     )
                     Age()
                 }
@@ -56,7 +58,7 @@ class UserInformation : ComponentActivity() {
                     Text(
                         stringResource(id = R.string.length1),
                         fontSize = 23.sp,
-                        modifier = Modifier.padding(end = 40.dp)
+                        modifier = Modifier.padding(end = 50.dp, top = 15.dp)
                     )
                     Length()
                 }
@@ -65,7 +67,7 @@ class UserInformation : ComponentActivity() {
                     Text(
                         stringResource(id = R.string.weight1),
                         fontSize = 23.sp,
-                        modifier = Modifier.padding(end = 40.dp)
+                        modifier = Modifier.padding(end = 50.dp, top = 15.dp)
                     )
                     Weight()
                 }
@@ -74,12 +76,13 @@ class UserInformation : ComponentActivity() {
                     Text(
                         stringResource(id = R.string.diseases1),
                         fontSize = 23.sp,
-                        modifier = Modifier.padding(end = 35.dp)
+                        modifier = Modifier.padding(end = 35.dp, top = 15.dp)
                     )
                     Diseases()
                 }
                 Spacer(modifier = Modifier.height(50.dp))
                 Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(123,40,40)) ,
                     onClick = {  }
                 ) {
                     Text(text = stringResource(id = R.string.send))
