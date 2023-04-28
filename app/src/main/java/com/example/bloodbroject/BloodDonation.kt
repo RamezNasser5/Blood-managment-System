@@ -5,10 +5,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -25,7 +25,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,30 +55,31 @@ class BloodDonation : ComponentActivity() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxSize()
+                    .padding(top = 140.dp, bottom = 100.dp, start = 50.dp, end = 30.dp)
+                    .background(Color(219, 217, 217))
+
             ) {
-                Row (
-                    modifier = Modifier
-                ){
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(text = "Location Search", fontSize = 25.sp)
+                Spacer(modifier = Modifier.height(20.dp))
                     Text(
                         stringResource(id = R.string.entre_your_location),
                         fontSize = 23.sp,
-                        modifier = Modifier.padding(end = 85.dp, top = 15.dp)
+                        modifier = Modifier.padding(start = 15.dp,bottom = 5.dp)
+                            .align(Alignment.Start)
                     )
-                    LocationField()
-                }
+                    UserDetails(R.string.entre_your_location,350,60)
+
                 Spacer(modifier = Modifier.height(20.dp))
-                Row (
-                    modifier = Modifier
-                        .padding(start = 10.dp, end = 10.dp)
-                ){
+
                     Text(
                         stringResource(id = R.string.nearest_hospital),
-                        modifier = Modifier.padding(end = 15.dp, top = 15.dp),
+                        modifier = Modifier.align(Alignment.Start).padding(start = 15.dp),
                         fontSize = 23.sp
                     )
                     DropDownMenuForLocation()
-                }
-                Spacer(modifier = Modifier.height(70.dp))
+
+                Spacer(modifier = Modifier.height(50.dp))
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color(123,40,40)) ,
                     onClick = {
@@ -90,26 +90,10 @@ class BloodDonation : ComponentActivity() {
                 ) {
                     Text(text = stringResource(id = R.string.next))
                 }
+                Spacer(modifier = Modifier.height(20.dp))
             }
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun LocationField() {
-    var editText by remember {
-        mutableStateOf("")
-    }
-    TextField(
-        value = editText,
-        onValueChange = { editText = it },
-        modifier = Modifier
-            .height(60.dp)
-            .width(200.dp),
-        label = { Text(stringResource(R.string.your_location)) },
-        singleLine = true,
-    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -125,7 +109,7 @@ fun DropDownMenuForLocation() {
     Column {
         OutlinedTextField(
             value = selectedItem, onValueChange = {selectedItem = it},
-            modifier = Modifier.height(60.dp).width(200.dp)
+            modifier = Modifier.height(60.dp).width(350.dp).padding(start = 15.dp, end = 15.dp)
                 .onGloballyPositioned { coordinates -> textFieldSize = coordinates.size.toSize() },
             label = { Text(text = "Select Item")},
             trailingIcon = {
@@ -134,7 +118,8 @@ fun DropDownMenuForLocation() {
         )
         DropdownMenu(
             expanded = expanded, onDismissRequest = { expanded = false },
-            modifier = Modifier.width(with(LocalDensity.current){textFieldSize.width.toDp()})
+            modifier = Modifier.width(with(LocalDensity.current){textFieldSize.width.toDp()}).
+            background(Color(230,222,237)),
         ) {
             listItems.forEach { label ->
                 DropdownMenuItem(text = { Text(text = label) },

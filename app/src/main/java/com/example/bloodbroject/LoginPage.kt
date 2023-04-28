@@ -18,17 +18,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ExperimentalMaterial3Api
-//import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-//import androidx.compose.runtime.mutableStateOf
-//import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -60,9 +54,9 @@ class LoginPage : ComponentActivity() {
                         .align(Alignment.Start)
                         .padding(start = 20.dp))
                 Spacer(modifier = Modifier.height(40.dp))
-                UserNameField()
+                UserDetails(R.string.user_name,300,60)
                 Spacer(modifier = Modifier.height(15.dp))
-                PasswordField()
+                UserDetails(R.string.password,300,60)
                 Spacer(modifier = Modifier.height(15.dp))
                 var checkedState by remember {
                     mutableStateOf(true)
@@ -95,34 +89,4 @@ class LoginPage : ComponentActivity() {
 
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun PasswordField() {
-    var editText by remember {
-        mutableStateOf("")
-    }
-    TextField(
-        modifier = Modifier.padding(start = 15.dp, end = 15.dp),
-        value = editText,
-        onValueChange = { editText = it },
-        label = { Text(stringResource(R.string.password)) },
-        singleLine = true,
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun UserNameField() {
-    var editText by remember {
-        mutableStateOf("")
-    }
-    TextField(
-        value = editText,
-        onValueChange = { editText = it },
-        label = { Text(stringResource(R.string.user_name)) },
-        singleLine = true,
-        modifier = Modifier.padding(start = 15.dp, end = 15.dp)
-    )
 }

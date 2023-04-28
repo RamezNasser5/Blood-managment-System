@@ -7,7 +7,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -24,7 +23,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -58,42 +56,46 @@ class BloodRequest : ComponentActivity() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxSize()
+                    .padding(start = 30.dp, end = 30.dp)
             ) {
-                Row {
                     Text(
                         stringResource(id = R.string.To),
                         fontSize = 23.sp,
-                        modifier = Modifier.padding(top = 15.dp, end = 80.dp)
+                        modifier = Modifier.align(Alignment.Start)
+                            .padding(start = 15.dp)
                     )
-                    HospitalName()
-                }
+                    UserDetails(R.string.To,450,60)
+
                 Spacer(modifier = Modifier.height(20.dp))
-                Row {
+
                     Text(
                         stringResource(id = R.string.Email),
-                        modifier = Modifier.padding(top = 15.dp,end = 55.dp),
+                        modifier = Modifier.align(Alignment.Start)
+                            .padding(start = 15.dp),
                         fontSize = 23.sp
                     )
-                    HospitalEmail()
-                }
+                    UserDetails(R.string.Email,450,60)
+
                 Spacer(modifier = Modifier.height(20.dp))
-                Row {
+
                     Text(
                         stringResource(id = R.string.Blood_Type),
-                        modifier = Modifier.padding(top = 15.dp,end = 5.dp),
+                        modifier = Modifier.align(Alignment.Start)
+                            .padding(start = 15.dp),
                         fontSize = 23.sp
                     )
                     DropDownMenu()
-                }
+
                 Spacer(modifier = Modifier.height(20.dp))
-                Row {
+
                     Text(
                         stringResource(id = R.string.Quantity),
-                        modifier = Modifier.padding(top = 15.dp,end = 40.dp),
+                        modifier = Modifier.align(Alignment.Start)
+                            .padding(start = 15.dp),
                         fontSize = 23.sp
                     )
-                    BloodQuantity()
-                }
+                    UserDetails(R.string.Quantity,450,60)
+
                 Spacer(modifier = Modifier.height(50.dp))
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color(123,40,40)) ,
@@ -109,57 +111,6 @@ class BloodRequest : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HospitalName() {
-    var editText by remember {
-        mutableStateOf("")
-    }
-    TextField(
-        value = editText,
-        onValueChange = { editText = it },
-        modifier = Modifier
-            .height(60.dp)
-            .width(200.dp),
-        label = { Text(stringResource(R.string.hospital_name)) },
-        singleLine = true,
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun HospitalEmail() {
-    var editText by remember {
-        mutableStateOf("")
-    }
-    TextField(
-        value = editText,
-        onValueChange = { editText = it },
-        modifier = Modifier
-            .height(60.dp)
-            .width(200.dp),
-        label = { Text(stringResource(R.string.hospital_email)) },
-        singleLine = true,
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun BloodQuantity() {
-    var editText by remember {
-        mutableStateOf("")
-    }
-    TextField(
-        value = editText,
-        onValueChange = { editText = it },
-        modifier = Modifier
-            .height(60.dp)
-            .width(200.dp),
-        label = { Text(stringResource(R.string.mml)) },
-        singleLine = true,
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
 fun DropDownMenu() {
     var expanded by remember { mutableStateOf(false) }
     val listItems = listOf("A+","A-","B+","B-","O+","O-","AB+","AB-")
@@ -171,7 +122,7 @@ fun DropDownMenu() {
     Column {
         OutlinedTextField(
             value = selectedItem, onValueChange = {selectedItem = it},
-            modifier = Modifier.height(60.dp).width(200.dp)
+            modifier = Modifier.height(60.dp).width(450.dp).padding(start = 15.dp, end = 15.dp)
                 .onGloballyPositioned { coordinates -> textFieldSize = coordinates.size.toSize() },
             label = { Text(text = "Select Item")},
             trailingIcon = {
