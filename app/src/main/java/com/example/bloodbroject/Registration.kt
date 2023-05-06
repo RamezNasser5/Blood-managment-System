@@ -46,7 +46,7 @@ class Registration : ComponentActivity() {
                     modifier = Modifier.padding(start = 15.dp,end = 50.dp, top = 15.dp)
                         .align(Alignment.Start)
                 )
-                UserDetails(R.string.user_name,450,50)
+                val userName = UserDetails(R.string.user_name,450,50)
 
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
@@ -55,7 +55,7 @@ class Registration : ComponentActivity() {
                     modifier = Modifier.padding(start = 15.dp,end = 50.dp, top = 15.dp)
                         .align(Alignment.Start)
                 )
-                UserDetails(R.string.first_name,450,50)
+                val firstName = UserDetails(R.string.first_name,450,50)
 
                 Spacer(modifier = Modifier.height(10.dp))
 
@@ -65,7 +65,7 @@ class Registration : ComponentActivity() {
                     modifier = Modifier.padding(start = 15.dp,end = 25.dp, top = 15.dp)
                         .align(Alignment.Start)
                 )
-                UserDetails(R.string.second_name,450,50)
+                val secondName = UserDetails(R.string.second_name,450,50)
 
                 Spacer(modifier = Modifier.height(10.dp))
 
@@ -75,7 +75,7 @@ class Registration : ComponentActivity() {
                     modifier = Modifier.padding(start = 15.dp,end = 25.dp, top = 15.dp)
                         .align(Alignment.Start)
                 )
-                UserDetails(R.string.phone_number,450,50)
+                val phoneNumber = UserDetails(R.string.phone_number,450,50)
 
                 Spacer(modifier = Modifier.height(10.dp))
 
@@ -86,9 +86,9 @@ class Registration : ComponentActivity() {
                         .align(Alignment.Start)
                 )
                 Row{
-                    UserDetails(R.string.day,120,50)
-                    UserDetails(R.string.month,120,50)
-                    UserDetails(R.string.years,120,50)
+                    val day = UserDetails(R.string.day,120,50)
+                    val month = UserDetails(R.string.month,120,50)
+                    val year = UserDetails(R.string.years,120,50)
                 }
 
 
@@ -100,7 +100,7 @@ class Registration : ComponentActivity() {
                     modifier = Modifier.padding(start = 15.dp,end = 25.dp, top = 15.dp)
                         .align(Alignment.Start)
                 )
-                UserDetails(R.string.password,450,50)
+                val password = UserDetails(R.string.password,450,50)
 
                 Spacer(modifier = Modifier.height(30.dp))
                 Button(

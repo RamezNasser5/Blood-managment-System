@@ -1,5 +1,6 @@
 package com.example.bloodbroject
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -36,11 +37,47 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
+import com.example.bloodbroject.entities.DonorTable
+import com.example.bloodbroject.entities.RequestTable
+import com.example.bloodbroject.entities.UserLocation
+import com.example.bloodbroject.entities.UserTable
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val dao: DaoUserTable = UserDatabase.getInstance(this).daoUserTable
+            val user = listOf(UserTable(
+                "RemonNasser45", "Remon","Nasser","0112345",
+                "5","6","2000","123456"
+            ))
+
+            val donor = listOf(
+                DonorTable(
+                    "Remon","Nasser","13","130"
+                    ,"80","null","Assiut Hospital"
+                )
+            )
+
+            val request = listOf(RequestTable(
+                "Remon","Nasser","Assiut city","hospital@gmail.com"
+                ,"A+","1",
+            ))
+
+            val location = listOf(
+                UserLocation(
+                    1,"Assiut","Assiut Hospital"
+                )
+            )
+            lifecycleScope.launch {
+                user.forEach { dao.insertUSerTable(it) }
+                donor.forEach { dao.insertDonorTable(it) }
+                request.forEach { dao.insertRequestTable(it) }
+                location.forEach { dao.insertUSerLocation(it) }
+            }
             val image = painterResource(id = R.drawable.lfmkhd)
             Image(painter = image, contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
@@ -50,6 +87,7 @@ class MainActivity : ComponentActivity() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
+                Spacer(modifier = Modifier.height(50.dp))
                 val imageBlood = painterResource(id = R.drawable.blood)
                 Image(painter = imageBlood,
                     contentDescription = null,
@@ -91,7 +129,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserDetails(text: Int, width: Int, Height: Int) {
+fun UserDetails(text: Int, width: Int, Height: Int): String {
     var password by rememberSaveable { mutableStateOf("") }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     var editText by remember {
@@ -120,6 +158,7 @@ fun UserDetails(text: Int, width: Int, Height: Int) {
                     }
                 }
             )
+            return password
         }
         R.string.phone_number , R.string.day, R.string.month, R.string.years,
         R.string.age1, R.string.length1 ,R.string.weight1, R.string.Quantity -> {
@@ -134,6 +173,7 @@ fun UserDetails(text: Int, width: Int, Height: Int) {
                 label = { Text(stringResource(text)) },
                 singleLine = true,
             )
+            return editText
         }
         else -> {TextField(
             value = editText,
@@ -144,6 +184,8 @@ fun UserDetails(text: Int, width: Int, Height: Int) {
                 .padding(start = 15.dp, end = 15.dp),
             label = { Text(stringResource(text)) },
             singleLine = true,
-        )}
+        )
+            return editText
+        }
     }
 }
