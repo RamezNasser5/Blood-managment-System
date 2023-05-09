@@ -1,5 +1,6 @@
 package com.example.bloodbroject
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -23,11 +24,44 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
+import com.example.bloodbroject.entities.UserTable
+import kotlinx.coroutines.launch
 
 class Registration : ComponentActivity() {
+    private var userName: String
+    private var firstName: String
+    private var secondName: String
+    private var phoneNumber: String
+    private var day: String
+    private var month: String
+    private var year: String
+    private var password: String
+    private var main = MainActivity()
+    init {
+        this.userName = ""
+        this.firstName = ""
+        this.secondName = ""
+        this.phoneNumber = ""
+        this.day = ""
+        this.month = ""
+        this.year = ""
+        this.password = ""
+    }
+
+    fun getFirstName(): String{
+        return firstName
+    }
+
+    fun getSecondName(): String{
+        return secondName
+    }
+    @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
+
             val image = painterResource(id = R.drawable.background)
 
             Image(painter = image, contentDescription = null,
@@ -46,7 +80,7 @@ class Registration : ComponentActivity() {
                     modifier = Modifier.padding(start = 15.dp,end = 50.dp, top = 15.dp)
                         .align(Alignment.Start)
                 )
-                val userName = UserDetails(R.string.user_name,450,50)
+                userName = userDetails(R.string.user_name,450,50)
 
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
@@ -55,7 +89,7 @@ class Registration : ComponentActivity() {
                     modifier = Modifier.padding(start = 15.dp,end = 50.dp, top = 15.dp)
                         .align(Alignment.Start)
                 )
-                val firstName = UserDetails(R.string.first_name,450,50)
+                firstName = userDetails(R.string.first_name,450,50)
 
                 Spacer(modifier = Modifier.height(10.dp))
 
@@ -65,7 +99,7 @@ class Registration : ComponentActivity() {
                     modifier = Modifier.padding(start = 15.dp,end = 25.dp, top = 15.dp)
                         .align(Alignment.Start)
                 )
-                val secondName = UserDetails(R.string.second_name,450,50)
+                secondName = userDetails(R.string.second_name,450,50)
 
                 Spacer(modifier = Modifier.height(10.dp))
 
@@ -75,7 +109,7 @@ class Registration : ComponentActivity() {
                     modifier = Modifier.padding(start = 15.dp,end = 25.dp, top = 15.dp)
                         .align(Alignment.Start)
                 )
-                val phoneNumber = UserDetails(R.string.phone_number,450,50)
+                phoneNumber = userDetails(R.string.phone_number,450,50)
 
                 Spacer(modifier = Modifier.height(10.dp))
 
@@ -86,9 +120,9 @@ class Registration : ComponentActivity() {
                         .align(Alignment.Start)
                 )
                 Row{
-                    val day = UserDetails(R.string.day,120,50)
-                    val month = UserDetails(R.string.month,120,50)
-                    val year = UserDetails(R.string.years,120,50)
+                    day = userDetails(R.string.day,120,50)
+                    month = userDetails(R.string.month,120,50)
+                    year = userDetails(R.string.years,120,50)
                 }
 
 
@@ -100,16 +134,17 @@ class Registration : ComponentActivity() {
                     modifier = Modifier.padding(start = 15.dp,end = 25.dp, top = 15.dp)
                         .align(Alignment.Start)
                 )
-                val password = UserDetails(R.string.password,450,50)
+                password = userDetails(R.string.password,450,50)
 
                 Spacer(modifier = Modifier.height(30.dp))
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color(123,40,40)) ,
                     onClick = {
-
-                            val navigate = Intent(this@Registration ,LoginPage::class.java)
-                            startActivity(navigate)
-
+                        lifecycleScope.launch { main.getDao().insertUSerTable(UserTable(
+                            userName,firstName,secondName,phoneNumber,day,month, year, password
+                        )) }
+                        val navigate = Intent(this@Registration ,LoginPage::class.java)
+                        startActivity(navigate)
                     }
                 ) {
                     Text(text = stringResource(id = R.string.registration))

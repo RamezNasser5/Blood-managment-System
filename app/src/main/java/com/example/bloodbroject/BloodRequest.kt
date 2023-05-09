@@ -40,12 +40,29 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
+import androidx.lifecycle.lifecycleScope
+import com.example.bloodbroject.entities.RequestTable
+import kotlinx.coroutines.launch
 
 
 class BloodRequest : ComponentActivity() {
+    private var hospitalName: String
+    private var hospitalEmail: String
+    private var bloodType: String
+    private var quantity: String
+
+    init {
+        this.hospitalName = ""
+        this.hospitalEmail = ""
+        this.bloodType = ""
+        this.quantity = ""
+    }
+    private var user = Registration()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val dao: DaoUserTable = UserDatabase.getInstance(this).daoUserTable
 
             val image = painterResource(id = R.drawable.background)
             Image(painter = image, contentDescription = null,
@@ -64,7 +81,7 @@ class BloodRequest : ComponentActivity() {
                         modifier = Modifier.align(Alignment.Start)
                             .padding(start = 15.dp)
                     )
-                    UserDetails(R.string.To,450,60)
+                hospitalName = userDetails(R.string.To,450,60)
 
                 Spacer(modifier = Modifier.height(20.dp))
 
@@ -74,7 +91,7 @@ class BloodRequest : ComponentActivity() {
                             .padding(start = 15.dp),
                         fontSize = 23.sp
                     )
-                    UserDetails(R.string.Email,450,60)
+                hospitalEmail = userDetails(R.string.Email,450,60)
 
                 Spacer(modifier = Modifier.height(20.dp))
 
@@ -84,7 +101,7 @@ class BloodRequest : ComponentActivity() {
                             .padding(start = 15.dp),
                         fontSize = 23.sp
                     )
-                    DropDownMenu()
+                bloodType = dropDownMenu()
 
                 Spacer(modifier = Modifier.height(20.dp))
 
@@ -94,12 +111,14 @@ class BloodRequest : ComponentActivity() {
                             .padding(start = 15.dp),
                         fontSize = 23.sp
                     )
-                    UserDetails(R.string.Quantity,450,60)
+                quantity = userDetails(R.string.Quantity,450,60)
 
                 Spacer(modifier = Modifier.height(50.dp))
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color(123,40,40)) ,
-                    onClick = {  }
+                    onClick = { lifecycleScope.launch { dao.insertRequestTable(RequestTable(
+                        user.getFirstName(),user.getSecondName(),hospitalName, hospitalEmail,bloodType,quantity
+                    )) } }
                 ) {
                     Text(text = stringResource(id = R.string.send))
                 }
@@ -111,7 +130,7 @@ class BloodRequest : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DropDownMenu() {
+fun dropDownMenu(): String{
     var expanded by remember { mutableStateOf(false) }
     val listItems = listOf("A+","A-","B+","B-","O+","O-","AB+","AB-")
     var selectedItem by remember { mutableStateOf("") }
@@ -142,4 +161,5 @@ fun DropDownMenu() {
             }
         }
     }
+    return selectedItem
 }

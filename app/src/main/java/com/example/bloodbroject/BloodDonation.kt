@@ -68,7 +68,7 @@ class BloodDonation : ComponentActivity() {
                         modifier = Modifier.padding(start = 15.dp,bottom = 5.dp)
                             .align(Alignment.Start)
                     )
-                    UserDetails(R.string.entre_your_location,350,60)
+                userDetails(R.string.entre_your_location,350,60)
 
                 Spacer(modifier = Modifier.height(20.dp))
 

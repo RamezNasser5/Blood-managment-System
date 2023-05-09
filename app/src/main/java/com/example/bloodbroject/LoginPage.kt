@@ -54,9 +54,9 @@ class LoginPage : ComponentActivity() {
                         .align(Alignment.Start)
                         .padding(start = 20.dp))
                 Spacer(modifier = Modifier.height(40.dp))
-                UserDetails(R.string.user_name,300,60)
+                userDetails(R.string.user_name,300,60)
                 Spacer(modifier = Modifier.height(15.dp))
-                UserDetails(R.string.password,300,60)
+                userDetails(R.string.password,300,60)
                 Spacer(modifier = Modifier.height(15.dp))
                 var checkedState by remember {
                     mutableStateOf(true)

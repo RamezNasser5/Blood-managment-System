@@ -21,11 +21,28 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
+import com.example.bloodbroject.entities.DonorTable
+import kotlinx.coroutines.launch
 
 class UserInformation : ComponentActivity() {
+    private var age: String
+    private var length: String
+    private var weight: String
+    private var diseases: String
+
+    init {
+        this.age = ""
+        this.length = ""
+        this.weight = ""
+        this.diseases = ""
+    }
+    private var user = Registration()
+    private var main = MainActivity()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             val image = painterResource(id = R.drawable.background)
             Image(painter = image, contentDescription = null,
                 contentScale = ContentScale.Crop,
@@ -45,7 +62,7 @@ class UserInformation : ComponentActivity() {
                             .align(Alignment.Start)
 
                     )
-                    UserDetails(R.string.age,450,60)
+                    age = userDetails(R.string.age,450,60)
 
                 Spacer(modifier = Modifier.height(20.dp))
 
@@ -56,7 +73,7 @@ class UserInformation : ComponentActivity() {
                             .align(Alignment.Start)
 
                     )
-                    UserDetails(R.string.length1,450,60)
+                   length = userDetails(R.string.length1,450,60)
 
                 Spacer(modifier = Modifier.height(20.dp))
 
@@ -67,7 +84,7 @@ class UserInformation : ComponentActivity() {
                             .align(Alignment.Start)
 
                     )
-                    UserDetails(R.string.weight1,450,60)
+                   weight = userDetails(R.string.weight1,450,60)
 
                 Spacer(modifier = Modifier.height(20.dp))
 
@@ -78,12 +95,16 @@ class UserInformation : ComponentActivity() {
                             .align(Alignment.Start)
 
                     )
-                    UserDetails(R.string.diseases1,450,60)
+                   diseases = userDetails(R.string.diseases1,450,60)
 
                 Spacer(modifier = Modifier.height(50.dp))
                 Button(
                     colors = ButtonDefaults.buttonColors(containerColor = Color(123,40,40)) ,
-                    onClick = {  }
+                    onClick = {
+                        lifecycleScope.launch { main.getDao().insertDonorTable(DonorTable(
+                            user.getFirstName(),user.getSecondName(),age,length,weight,diseases,""
+                        )) }
+                    }
                 ) {
                     Text(text = stringResource(id = R.string.send))
                 }

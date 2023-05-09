@@ -37,47 +37,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.lifecycleScope
-import com.example.bloodbroject.entities.DonorTable
-import com.example.bloodbroject.entities.RequestTable
-import com.example.bloodbroject.entities.UserLocation
-import com.example.bloodbroject.entities.UserTable
-import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+    private val dao: DaoUserTable = UserDatabase.getInstance(this).daoUserTable
+
+    fun getDao(): DaoUserTable{
+        return dao
+    }
     @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val dao: DaoUserTable = UserDatabase.getInstance(this).daoUserTable
-            val user = listOf(UserTable(
-                "RemonNasser45", "Remon","Nasser","0112345",
-                "5","6","2000","123456"
-            ))
-
-            val donor = listOf(
-                DonorTable(
-                    "Remon","Nasser","13","130"
-                    ,"80","null","Assiut Hospital"
-                )
-            )
-
-            val request = listOf(RequestTable(
-                "Remon","Nasser","Assiut city","hospital@gmail.com"
-                ,"A+","1",
-            ))
-
-            val location = listOf(
-                UserLocation(
-                    1,"Assiut","Assiut Hospital"
-                )
-            )
-            lifecycleScope.launch {
-                user.forEach { dao.insertUSerTable(it) }
-                donor.forEach { dao.insertDonorTable(it) }
-                request.forEach { dao.insertRequestTable(it) }
-                location.forEach { dao.insertUSerLocation(it) }
-            }
             val image = painterResource(id = R.drawable.lfmkhd)
             Image(painter = image, contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
@@ -129,7 +99,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserDetails(text: Int, width: Int, Height: Int): String {
+fun userDetails(text: Int, width: Int, Height: Int): String {
     var password by rememberSaveable { mutableStateOf("") }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     var editText by remember {
